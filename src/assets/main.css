@@ -1,0 +1,101 @@
+/* ------------- */
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-dark);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-white);
+  font-family: "Roboto", serif;
+}
+
+.line {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.4s ease-in-out;
+}
+
+.line:hover {
+  color: var(--color-white);
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: var(--color-white);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease-in-out;
+}
+
+.line:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+
+/* var-color */
+:root {
+  --color-white: #FFFFFF;
+  --color-yellow: #EDC32D;
+  --color-yellow-hover: #F5D741;
+  --color-gray: #A5A5A5;
+  --color-dark: #000000;
+  --color-underlay: #141414;
+  --color-secondary-underlay: #1E1E1E;
+}
+
+/* @media (max-width: 991px) {
+  
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 499px) {
+
+} */
