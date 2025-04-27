@@ -39,11 +39,11 @@ body {
 }
 
 body {
-  background-color: var(--color-dark);
+  background-color: var(--color-black);
   font-size: 18px;
   font-weight: 400;
   color: var(--color-white);
-  font-family: "Roboto", serif;
+  font-family: "Inter", sans-serif;
 }
 
 .line {
@@ -75,27 +75,60 @@ body {
   transform-origin: left;
 }
 
-
-
 /* var-color */
 :root {
+  --color-black: #0E1116;
+  --color-dark-gray: #11151A;
   --color-white: #FFFFFF;
-  --color-yellow: #EDC32D;
-  --color-yellow-hover: #F5D741;
-  --color-gray: #A5A5A5;
-  --color-dark: #000000;
-  --color-underlay: #141414;
-  --color-secondary-underlay: #1E1E1E;
+  --color-gray: #B2C8D5;
+  --color-light-gray: #ACC2D4;
+  --color-blue: #1941AD;
+  --color-blue-light: #185DE1;
+  --color-blue-hover: #3B82F6;
 }
 
-/* @media (max-width: 991px) {
-  
+:root {
+  /* Базовая единица измерения */
+  --base-unit: 8px;
+
+  /* ШКАЛА ОТСТУПОВ */
+  /* 8px */
+  --space-xs: calc(var(--base-unit) * 1);
+  /* 16px */
+  --space-sm: calc(var(--base-unit) * 2);
+  /* 24px */
+  --space-md: calc(var(--base-unit) * 3);
+  /* 32px */
+  --space-lg: calc(var(--base-unit) * 4);
+  /* 40px */
+  --space-xl: calc(var(--base-unit) * 5);
+  /* 48px */
+  --space-2xl: calc(var(--base-unit) * 6);
+
+  /* ГЛАВНЫЕ ОТСТУПЫ */
+  /* Отступ между секциями 40px */
+  --section-gap: var(--space-xl);
+  /* Отступ от заголовка до контента 32px */
+  --section-title-gap: var(--space-lg);
+
+  /* РАЗМЕРЫ ИНТЕРАКТИВНЫХ ЭЛЕМЕНТОВ */
+  /* 56px — высота инпута/селекта */
+  --input-height: calc(var(--base-unit) * 7);
+  /* 48px — высота кнопки */
+  --button-height: calc(var(--base-unit) * 6);
+
+  /* ИКОНКИ */
+  /* 16px */
+  --icon-size-sm: calc(var(--base-unit) * 2);
+  /* 20px */
+  --icon-size-md: calc(var(--base-unit) * 2.5);
+  /* 24px */
+  --icon-size-lg: calc(var(--base-unit) * 3);
+
+  /* Мобильная версия: уменьшаем отступы и размеры */
+  /* ГЛАВНЫЕ ОТСТУПЫ */
+  /* Уменьшаем отступ между секциями 32px */
+  --section-gap: var(--space-md);
+  /* Уменьшаем отступ от заголовка до контента  24px  */
+  --section-title-gap: var(--space-sm);
 }
-
-@media (max-width: 768px) {
-
-}
-
-@media (max-width: 499px) {
-
-} */
