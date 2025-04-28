@@ -25,43 +25,43 @@
           </div>
 
           <div class="nav-mobile__item">
-            <router-link to="/competitions">
+            <router-link to="">
               <app-link class="nav-mobile__link">
                 <app-icon 
-                  name="popular" 
+                  name="my-diary" 
                   size="20" 
                   color="var(--color-gray)"
                   class="nav-mobile__icon"
                 />
-                Popular
+                My Diary
               </app-link>
             </router-link>
           </div>
           
           <div class="nav-mobile__item">
-            <router-link to="/news">
+            <router-link to="">
               <app-link class="nav-mobile__link">
                 <app-icon 
-                  name="meal-planner" 
+                  name="analytics" 
                   size="20" 
                   color="var(--color-gray)"
                   class="nav-mobile__icon"
                 />
-                Meal Planner
+                Analytics
               </app-link>
             </router-link>
           </div>
 
           <div class="nav-mobile__item">
-            <router-link to="/news">
+            <router-link to="">
               <app-link class="nav-mobile__link">
                 <app-icon 
-                  name="recipes" 
+                  name="profile" 
                   size="20" 
                   color="var(--color-gray)"
                   class="nav-mobile__icon"
                 />
-                Recipes
+                Profile
               </app-link>
             </router-link>
           </div>
