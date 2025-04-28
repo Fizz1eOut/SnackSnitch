@@ -12,15 +12,15 @@
       </div>
 
       <div class="nav__item">
-        <app-link>Popular</app-link>
+        <app-link>My Diary</app-link>
       </div>
 
       <div class="nav__item">
-        <app-link>Meal Planner</app-link>
+        <app-link>Analytics</app-link>
       </div>
 
       <div class="nav__item">
-        <app-link>Recipes</app-link>
+        <app-link>Profile</app-link>
       </div>
 
       <div class="nav__item">
