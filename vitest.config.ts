@@ -7,7 +7,7 @@ import { configDefaults } from 'vitest/config';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/MatchTracker',
+  base: '/SnackSnitch',
   plugins: [
     vue(),
     vueDevTools(),
