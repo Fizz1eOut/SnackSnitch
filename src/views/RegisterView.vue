@@ -12,37 +12,44 @@
     login: yup.string()
       .required('Enter your login')
       .matches(/^[a-zA-Z0-9_]+$/, 'Login can only contain letters, numbers, and underscores'),
-
-    password: yup.string().required('Enter your password'),
+    password: yup.string().required('Enter your password').min(6, 'At least 6 characters'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Passwords must match')
+      .required('Confirm your password'),
   });
 
   const { handleSubmit } = useForm({ validationSchema });
-  const { value: login, errorMessage: loginError } = useField<string>('login', undefined, { initialValue: '' });
-  const { value: password, errorMessage: passwordError } = useField<string>('password', undefined, { initialValue: '' });
+  const { value: login, errorMessage: loginError } = useField('login', undefined, { initialValue: '' });
+  const { value: password, errorMessage: passwordError } = useField('password', undefined, { initialValue: '' });
+  const { value: confirmPassword, errorMessage: confirmPasswordError } = useField('confirmPassword', undefined, { initialValue: '' });
 
   const hasError = computed(() => !!loginError.value || !!passwordError.value);
 
   const onSubmit = handleSubmit((values) => {
-    console.log('Login:', values);
+    console.log('Register:', values);
   });
 
   const showPassword = ref(false);
+  const showConfirmPassword = ref(false);
   const togglePasswordVisibility = (field: 'password' | 'confirmPassword') => {
     if (field === 'password') {
       showPassword.value = !showPassword.value;
+    } else {
+      showConfirmPassword.value = !showConfirmPassword.value;
     }
   };
 
   const router = useRouter();
   const goToPage = () => {
-    router.push('/register');
+    router.push('/login');
   };
 </script>
 
 <template>
   <form @submit.prevent="onSubmit" class="form">
     <app-title>
-      Welcome back!
+      Join us
     </app-title>
     <div class="form__body">
       <div class="form__item">
@@ -66,31 +73,49 @@
         <app-button class="toggle-password" @click="togglePasswordVisibility('password')">
           <app-icon 
             :name="showPassword ? 'eye-off' : 'eye'"
-            size="var(--icon-size-sm)" 
+            size="16px" 
             style="color: var(--color-gray)"
           />
         </app-button>
         <span class="error-message">{{ passwordError }}</span>
       </div>
 
+      <div class="form__item">
+        <app-input 
+          v-model="confirmPassword" 
+          :type="showConfirmPassword ? 'text' : 'password'" 
+          autocomplete="current-password"
+          placeholder="Confirm password"
+          :class="{ 'has-error': confirmPasswordError }"
+        />
+        <app-button class="toggle-password" @click="togglePasswordVisibility('confirmPassword')">
+          <app-icon 
+            :name="showConfirmPassword ? 'eye-off' : 'eye'" 
+            size="16px" 
+            style="color: var(--color-gray)"
+          />
+        </app-button>
+        <span class="error-message">{{ confirmPasswordError }}</span>
+      </div>
+
       <div class="form__button">
-        <app-button 
+        <app-button
           :action="!hasError"
           :disabled="hasError"
           type="submit"
         >
-          Log in
+          Sign Up
         </app-button>
       </div>
-      <div class="signup">
-        <app-button @click="goToPage" class="signup__button" >Don`t have an account? <span>Sign up</span></app-button>
+      <div class="login">
+        <app-button @click="goToPage" class="login__button" >Don`t have an account? <span>Log in</span></app-button>
       </div>
     </div>
   </form>
 </template>
 
 <style scoped>
-  .form {
+   .form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -135,15 +160,15 @@
     cursor: pointer;
     font-size: 18px;
   }
-  .signup {
+  .login {
     display: flex;
     justify-content: center;
     align-items: center;
   } 
-  .signup__button {
+  .login__button {
     max-width: 250px;
   }
-  .signup__button span {
+  .login__button span {
     font-size: 18px;
     font-weight: 400;
     color: var(--color-blue-light);
