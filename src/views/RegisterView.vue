@@ -7,12 +7,14 @@
   import AppIcon from '@/components/Base/AppIcon.vue';
   import AppTitle from '@/components/Base/AppTitle.vue';
   import { useRouter } from 'vue-router';
+  import { addUser, getUser } from '@/utils/bd/user';
+  import { useUserStore } from '@/stores/user';
 
   const validationSchema = yup.object({
     login: yup.string()
       .required('Enter your login')
       .matches(/^[a-zA-Z0-9_]+$/, 'Login can only contain letters, numbers, and underscores'),
-    password: yup.string().required('Enter your password').min(6, 'At least 6 characters'),
+    password: yup.string().required('Enter your password').min(5, 'At least 5 characters'),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref('password')], 'Passwords must match')
@@ -24,10 +26,25 @@
   const { value: password, errorMessage: passwordError } = useField('password', undefined, { initialValue: '' });
   const { value: confirmPassword, errorMessage: confirmPasswordError } = useField('confirmPassword', undefined, { initialValue: '' });
 
-  const hasError = computed(() => !!loginError.value || !!passwordError.value);
+  const hasError = computed(() => !!loginError.value || !!passwordError.value || !!confirmPasswordError.value);
 
-  const onSubmit = handleSubmit((values) => {
-    console.log('Register:', values);
+  const userStore = useUserStore();
+  const onSubmit = handleSubmit(async (values) => {
+    const existing = await getUser(values.login);
+
+    if (existing) {
+      alert('This login is already taken.');
+      return;
+    }
+
+    const newUser = {
+      username: values.login,
+      password: values.password,
+    };
+
+    await addUser(newUser);
+    userStore.setUser(newUser);
+    router.push('/onboarding');
   });
 
   const showPassword = ref(false);
@@ -108,7 +125,7 @@
         </app-button>
       </div>
       <div class="login">
-        <app-button @click="goToPage" class="login__button" >Don`t have an account? <span>Log in</span></app-button>
+        <app-button @click="goToPage" class="login__button">Don`t have an account? <span>Log in</span></app-button>
       </div>
     </div>
   </form>
