@@ -52,15 +52,41 @@
   const { value: goal, errorMessage: goalError } = useField<string>('goal', undefined, { initialValue: '' });
   const { value: activity, errorMessage: activityError } = useField<string>('activity', undefined, { initialValue: '' });
 
-  // Trigger validation on form submit
+  const userStore = useUserStore();
+  const router = useRouter();
   const onSubmit = handleSubmit(
-    (values) => {
-      console.log('✅ Submitted:', values);
-    },
-    (errors) => {
-      console.warn('❌ Validation errors:', errors);
-    }
-  );
+    async (values) => {
+      const username = localStorage.getItem('currentUser');
+      if (!username) {
+        console.warn('No username found in localStorage.');
+        return;
+      }
+
+      const user = await getUser(username);
+      if (!user) {
+        console.warn('User not found in DB.');
+        return;
+      }
+
+      const updatedUser = {
+        ...user,
+        profile: {
+          height: Number(values.height),
+          weight: Number(values.weight),
+          age: Number(values.age),
+          gender: values.gender,
+          goal: values.goal,
+          activity: values.activity
+        }
+      };
+
+      // Сохраняем в БД
+      await addUser(updatedUser);
+
+      userStore.setUser(updatedUser);
+
+      router.push('/');
+    });
 
   const hasError = computed(() =>
     Boolean(heightError.value || weightError.value || ageError.value || 

@@ -1,7 +1,7 @@
 // src/stores/user.ts
 import { defineStore } from 'pinia';
 import type { User, UserProfile } from '@/interface/user.interface';
-import { getUser } from '@/utils/bd/user';
+import { addUser, getUser } from '@/utils/bd/user';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -36,6 +36,12 @@ export const useUserStore = defineStore('user', {
         const user = await getUser(username);
         if (user) this.currentUser = user;
       }
-    }
+    },
+    async saveUserToDB() {
+      if (this.currentUser) {
+        const plainUser = JSON.parse(JSON.stringify(this.currentUser));
+        await addUser(plainUser);
+      }
+    } 
   }
 });
