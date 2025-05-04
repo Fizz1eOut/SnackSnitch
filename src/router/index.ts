@@ -19,20 +19,33 @@ router.beforeEach(async (to, from, next) => {
   const publicPages = ['/login', '/register', '/onboarding'];
   const userStore = useUserStore();
 
+  // Загрузка пользователя, если он ещё не загружен
   if (!userStore.currentUser) {
     await userStore.loadUserFromDB();
   }
 
-  if (!userStore.currentUser && !publicPages.includes(to.path)) {
+  const isPublicPage = publicPages.includes(to.path);
+  const isAuthenticated = !!userStore.currentUser;
+  const hasProfile = userStore.hasProfile;
+
+  // Если пользователь не авторизован и страница не публичная — отправляем на логин
+  if (!isAuthenticated && !isPublicPage) {
     return next('/login');
   }
 
-  if (userStore.currentUser && !userStore.hasProfile && to.path !== '/onboarding') {
+  // Если пользователь авторизован, но не прошёл онбординг — перенаправляем на онбординг
+  if (isAuthenticated && !hasProfile && to.path !== '/onboarding') {
     return next('/onboarding');
+  }
+
+  // Если пользователь авторизован и уже прошёл онбординг — запрет на доступ к login/register/onboarding
+  if (isAuthenticated && hasProfile && isPublicPage) {
+    return next('/');
   }
 
   next();
 });
+
 
 router.afterEach((to) => {
   const title = to.meta.title as string;
