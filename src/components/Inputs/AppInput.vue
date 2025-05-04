@@ -2,7 +2,7 @@
   import { computed } from 'vue';
 
   interface SearchInputProps {
-    modelValue: string;
+    modelValue: string | number | null;
     placeholder?: string;
     type?: string;
   }

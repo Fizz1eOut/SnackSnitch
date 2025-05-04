@@ -81,6 +81,8 @@ body {
   --color-blue: #1941AD;
   --color-blue-light: #185DE1;
   --color-blue-hover: #3B82F6;
+  --color-red: #D92D20;
+  --color-green: #039855;
 }
 
 :root {
@@ -108,8 +110,8 @@ body {
   --section-title-gap: var(--space-lg);
 
   /* РАЗМЕРЫ ИНТЕРАКТИВНЫХ ЭЛЕМЕНТОВ */
-  /* 56px — высота инпута/селекта */
-  --input-height: calc(var(--base-unit) * 7);
+  /* 40px — высота инпута/селекта */
+  --input-height: calc(var(--base-unit) * 5);
   /* 48px — высота кнопки */
   --button-height: calc(var(--base-unit) * 6);
 
@@ -126,6 +128,8 @@ body {
   --radius-sm: calc(var(--base-unit) * 1);
   /* 16px */
   --radius-md: calc(var(--base-unit) * 2);
+  /* 24px */
+  --radius-lg: calc(var(--base-unit) * 3);
 
   /* Мобильная версия: уменьшаем отступы и размеры */
   /* ГЛАВНЫЕ ОТСТУПЫ */

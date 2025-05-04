@@ -54,7 +54,7 @@
     border-style: solid;
     border-width: 8px 8px 0 8px;
     border-color: var(--color-gray) transparent transparent transparent;
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     pointer-events: none;
     position: absolute;
     top: 47%;
@@ -66,6 +66,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 100%;
+    padding-left: 20px;
     height: var(--input-height);
     background-color: transparent;
     border-radius: var(--radius-lg);
