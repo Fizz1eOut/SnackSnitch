@@ -33,6 +33,7 @@
   ];
 
   const validationSchema = yup.object({
+    name: yup.string().required('Enter your name'),
     height: yup.string().required('Enter your height').matches(/^\d+$/, 'Must be a number'),
     weight: yup.string().required('Enter your weight').matches(/^\d+$/, 'Must be a number'),
     age: yup.string().required('Enter your age').matches(/^\d+$/, 'Must be a number'),
@@ -45,6 +46,7 @@
     validationSchema
   });
 
+  const { value: name, errorMessage: nameError } = useField<string>('name', undefined, { initialValue: '' });
   const { value: height, errorMessage: heightError } = useField<number | null>('height', undefined, { initialValue: null });
   const { value: weight, errorMessage: weightError } = useField<number | null>('weight', undefined, { initialValue: null });
   const { value: age, errorMessage: ageError } = useField<number | null>('age', undefined, { initialValue: null });
@@ -71,6 +73,7 @@
       const updatedUser = {
         ...user,
         profile: {
+          name: values.name,
           height: Number(values.height),
           weight: Number(values.weight),
           age: Number(values.age),
@@ -89,7 +92,7 @@
     });
 
   const hasError = computed(() =>
-    Boolean(heightError.value || weightError.value || ageError.value || 
+    Boolean(nameError.value || heightError.value || weightError.value || ageError.value || 
       genderError.value || goalError.value || activityError.value)
   );
 </script>
@@ -100,6 +103,14 @@
       Customize Your Profile
     </app-title>
     <div class="form__body">
+      <div class="form__item">
+        <app-input 
+          v-model="name"
+          placeholder="Enter your name"
+          :class="{ 'has-error': nameError }"
+        />
+        <span class="error-message">{{ nameError }}</span>
+      </div>
       <div class="form__item">
         <app-input 
           v-model="height" 

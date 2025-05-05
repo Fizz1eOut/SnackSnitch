@@ -5,6 +5,7 @@ export interface User {
 };
 
 export interface UserProfile {
+  name: string;
   height: number;
   weight: number;
   age: number;
