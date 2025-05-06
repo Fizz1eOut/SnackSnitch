@@ -44,14 +44,14 @@
   .icon-wrapper {
     position: absolute;
     top: 50%;
-    left: 10px;
+    left: 15px;
     transform: translateY(-50%);
-    width: var(--radius-md);
-    height: var(--radius-md);
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
   }
   .input {
     width: 100%;
-    padding-left: 20px;
+    padding-left: 40px;
     height: var(--input-height);
     background-color: transparent;
     color: var(--color-white);
