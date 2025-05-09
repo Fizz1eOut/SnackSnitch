@@ -130,11 +130,4 @@ body {
   --radius-md: calc(var(--base-unit) * 2);
   /* 24px */
   --radius-lg: calc(var(--base-unit) * 3);
-
-  /* Мобильная версия: уменьшаем отступы и размеры */
-  /* ГЛАВНЫЕ ОТСТУПЫ */
-  /* Уменьшаем отступ между секциями 32px */
-  --section-gap: var(--space-md);
-  /* Уменьшаем отступ от заголовка до контента  24px  */
-  --section-title-gap: var(--space-sm);
 }

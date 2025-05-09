@@ -72,12 +72,4 @@
   :-ms-input-placeholder {
     color: var(--color-gray);
   }
-  @media (max-width: 360px) {
-    .input {
-      padding: 8px 12px;
-    }
-    .icon-input {
-      display: none;
-    }
-  } 
 </style>
