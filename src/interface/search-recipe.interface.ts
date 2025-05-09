@@ -1,8 +1,21 @@
+export interface Nutrient {
+  name: string;
+  amount: number;
+  unit: string;
+  percentOfDailyNeeds?: number;
+}
+
 export interface RecipeInfo {
-  calories: number;
+  caloriesPerServing: number;
+  caloriesPer100g: number;
   fat: string;
   protein: string;
   carbs: string;
+  nutrients?: Nutrient[];
+  weightPerServing?: {
+    amount: number;
+    unit: string;
+  };
 }
 
 export interface Recipe {
