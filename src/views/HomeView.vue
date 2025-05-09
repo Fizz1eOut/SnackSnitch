@@ -1,6 +1,7 @@
 <script setup lang="ts">
+  import NutritionHome from '@/components/Content/Nutrition/NutritionHome.vue';
 </script>
 
 <template>
-  hello world
+  <nutrition-home />
 </template>
