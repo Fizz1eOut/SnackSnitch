@@ -8,7 +8,9 @@
   import AppInput from '@/components/Inputs/AppInput.vue';
   import AppSuggestions from '@/components/Base/AppSuggestions.vue';
   import AppIcon from '@/components/Base/AppIcon.vue';
+  import { useRouter } from 'vue-router';
 
+  const router = useRouter();
   const query = ref('');
   const recipes = ref<Recipe[]>([]);
   const ingredients = ref<Ingredient[]>([]);
@@ -24,8 +26,8 @@
     isLoading.value = true;
     try {
       const [recipesResponse, ingredientsResponse] = await Promise.all([
-        getSearchRecipe(query),
-        searchIngredients(query)
+        getSearchRecipe(query, 0, 5),
+        searchIngredients(query, 0, 5)
       ]);
       recipes.value = recipesResponse.results;
       ingredients.value = ingredientsResponse.results;
@@ -40,6 +42,10 @@
     }
   };
 
+  const handleSubmit = () => {
+    if (!query.value.trim()) return;
+    router.push({ name: 'SearchResults', params: { name: query.value } });
+  };
 
   const debouncedFetchSearch = debounce(fetchSearch, 500);
 
@@ -53,6 +59,7 @@
     <app-input 
       v-model="query" 
       placeholder="Search for food or recipes"
+      @keyup.enter="handleSubmit"
     >
       <template #icon>
         <app-icon 

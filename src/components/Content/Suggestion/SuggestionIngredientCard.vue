@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { useRouter } from 'vue-router';
   import type { Ingredient } from '@/interface/search-ingredients.interface';
   import AppImage from '@/components/Base/AppImage.vue';
   import AppSubtitle from '@/components/Base/AppSubtitle.vue';
@@ -7,6 +8,12 @@
     ingredients: Ingredient[];
   }
   defineProps<SuggestionsIngredientCardProps>();
+
+  const router = useRouter();
+  const handleSelectSuggestion = (item: Ingredient) => {
+    console.log('Selected item:', item);
+    router.push({ name: 'SearchResults', params: { name: item.name } });
+  };
 </script>
 
 <template>
@@ -16,7 +23,7 @@
       v-for="i in ingredients" 
       :key="i.id"
       class="suggestions__list">
-      <li class="suggestions__item">
+      <li class="suggestions__item" @click="handleSelectSuggestion(i)">
         <div class="suggestions__card card-suggestions">
           <div class="card-suggestions__image">
             <app-image 

@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue';
 import TheLogin from '@/views/LoginView.vue';
 import TheRegister from '@/views/RegisterView.vue';
 import TheOnboarding from '@/views/OnboardingView.vue';
+import SearchResultsView from '@/views/SearchResultsView.vue';
 import { useUserStore } from '@/stores/user';
 
 const router = createRouter({
@@ -12,6 +13,7 @@ const router = createRouter({
     { path: '/login', component: TheLogin, meta: { title: 'Login' } },
     { path: '/register', component: TheRegister, meta: { title: 'Register' } },
     { path: '/onboarding', component: TheOnboarding, meta: { title: 'Onboarding' } },
+    { path: '/search/:name', name: 'SearchResults', component: SearchResultsView, meta: { title: 'Onboarding' }, props: true },
   ],
 });
 

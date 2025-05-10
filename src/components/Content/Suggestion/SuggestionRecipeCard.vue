@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { useRouter } from 'vue-router';
   import { computed } from 'vue';
   import type { Recipe, Nutrient } from '@/interface/search-recipe.interface';
   import AppImage from '@/components/Base/AppImage.vue';
@@ -17,6 +18,12 @@
       return weight > 0 ? Number(((calories / weight) * 100).toFixed(1)) : 0;
     });
   });
+
+  const router = useRouter();
+  const handleSelectSuggestion = (item: Recipe) => {
+    console.log('Selected item:', item);
+    router.push({ name: 'SearchResults', params: { name: item.title } });
+  };
 </script>
 
 <template>
@@ -26,7 +33,7 @@
       v-for="(r, index) in recipes" 
       :key="r.id"
       class="suggestions__list">
-      <li class="suggestions__item">
+      <li class="suggestions__item" @click="handleSelectSuggestion(r)">
         <div class="suggestions__card card-suggestions">
           <div class="card-suggestions__image">
             <app-image 
