@@ -1,81 +1,46 @@
 <script setup lang="ts">
-  import { useRouter } from 'vue-router';
   import { computed } from 'vue';
   import type { Recipe, Nutrient } from '@/interface/search-recipe.interface';
   import AppImage from '@/components/Base/AppImage.vue';
-  import AppSubtitle from '@/components/Base/AppSubtitle.vue';
 
   interface SuggestionsRecipeCardProps {
-    recipes: Recipe[];
+    recipes: Recipe;
   }
   const props = defineProps<SuggestionsRecipeCardProps>();
 
   const caloriesPer100g = computed(() => {
-    return props.recipes.map((recipe) => {
-      const calories = recipe.nutrition?.nutrients?.find((n: Nutrient) => n.name === 'Calories')?.amount ?? 0;
-      const weight = recipe.nutrition?.weightPerServing?.amount ?? 0;
+    const calories = props.recipes.nutrition?.nutrients?.find((n: Nutrient) => n.name === 'Calories')?.amount ?? 0;
+    const weight = props.recipes.nutrition?.weightPerServing?.amount ?? 0;
 
-      return weight > 0 ? Number(((calories / weight) * 100).toFixed(1)) : 0;
-    });
+    return weight > 0 ? Number(((calories / weight) * 100).toFixed(1)) : 0;
   });
-
-  const router = useRouter();
-  const handleSelectSuggestion = (item: Recipe) => {
-    console.log('Selected item:', item);
-    router.push({ name: 'SearchResults', params: { name: item.title } });
-  };
 </script>
 
 <template>
   <div class="suggestions__content">
-    <app-subtitle class="suggestions__title">Recipes</app-subtitle>
-    <ul 
-      v-for="(r, index) in recipes" 
-      :key="r.id"
-      class="suggestions__list">
-      <li class="suggestions__item" @click="handleSelectSuggestion(r)">
-        <div class="suggestions__card card-suggestions">
-          <div class="card-suggestions__image">
-            <app-image 
-              :image="r.image" 
-              type="recipe" 
-              class="card-suggestions__img"
-            />
-          </div>
-          <div class="card-suggestions__row">
-            <div class="card-suggestions__name">
-              {{ r.title }}
-            </div>
-            <div class="card-suggestions__nutrition">
-              <div class="nutrition__value">
-                {{ caloriesPer100g[index] > 0 ? `${caloriesPer100g[index]} kcal / 100g` : 'Calories not specified' }}
-              </div>
-            </div>
+    <div class="suggestions__card card-suggestions">
+      <div class="card-suggestions__image">
+        <app-image 
+          :image="recipes.image" 
+          type="recipe" 
+          class="card-suggestions__img"
+        />
+      </div>
+      <div class="card-suggestions__row">
+        <div class="card-suggestions__name">
+          {{ recipes.title }}
+        </div>
+        <div class="card-suggestions__nutrition">
+          <div class="nutrition__value">
+            {{ caloriesPer100g > 0 ? `${caloriesPer100g} kcal / 100g` : 'Calories not specified' }}
           </div>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-  .suggestions__content {
-    flex: 0 1 50%;
-  }
-  .suggestions__title {
-    padding-bottom: 20px;
-  }
-  .suggestions__list {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .suggestions__item {
-    width: 100%;
-  }
-  .suggestions__list:not(:last-child) {
-    margin-bottom: var(--space-sm);
-  }
   .suggestions__card {
     padding: 5px;
     display: flex;

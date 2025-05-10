@@ -1,64 +1,31 @@
 <script setup lang="ts">
-  import { useRouter } from 'vue-router';
   import type { Ingredient } from '@/interface/search-ingredients.interface';
   import AppImage from '@/components/Base/AppImage.vue';
-  import AppSubtitle from '@/components/Base/AppSubtitle.vue';
 
   interface SuggestionsIngredientCardProps {
-    ingredients: Ingredient[];
+    ingredients: Ingredient;
   }
   defineProps<SuggestionsIngredientCardProps>();
-
-  const router = useRouter();
-  const handleSelectSuggestion = (item: Ingredient) => {
-    console.log('Selected item:', item);
-    router.push({ name: 'SearchResults', params: { name: item.name } });
-  };
 </script>
 
 <template>
   <div class="suggestions__content">
-    <app-subtitle class="suggestions__title">Ingredients</app-subtitle>
-    <ul 
-      v-for="i in ingredients" 
-      :key="i.id"
-      class="suggestions__list">
-      <li class="suggestions__item" @click="handleSelectSuggestion(i)">
-        <div class="suggestions__card card-suggestions">
-          <div class="card-suggestions__image">
-            <app-image 
-              :image="i.image" 
-              type="ingredient" 
-              class="card-suggestions__img"
-            />
-          </div>
-          <div class="card-suggestions__name">
-            {{ i.name }}
-          </div>
-        </div>
-      </li>
-    </ul>
+    <div class="suggestions__card card-suggestions">
+      <div class="card-suggestions__image">
+        <app-image 
+          :image="ingredients.image" 
+          type="ingredient" 
+          class="card-suggestions__img"
+        />
+      </div>
+      <div class="card-suggestions__name">
+        {{ ingredients.name }}
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-  .suggestions__content {
-    flex: 0 1 50%;
-  }
-  .suggestions__title {
-    padding-bottom: 20px;
-  }
-  .suggestions__list {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .suggestions__item {
-    width: 100%;
-  }
-  .suggestions__list:not(:last-child) {
-    margin-bottom: var(--space-sm);
-  }
   .suggestions__card {
     padding: 5px;
     display: flex;
