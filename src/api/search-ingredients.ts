@@ -1,10 +1,15 @@
 import { fetchData } from '@/modules/http';
 import type { IngredientSearchResponse } from '@/interface/search-ingredients.interface';
 
-export const searchIngredients = async (query: string): Promise<IngredientSearchResponse> => {
+export const searchIngredients = async (
+  query = '',
+  offset = 0,
+  number = 20
+): Promise<IngredientSearchResponse> => {
   const params = new URLSearchParams({
     query,
-    number: '20',
+    offset: offset.toString(),
+    number: number.toString(),
     apiKey: import.meta.env.VITE_API_KEY
   });
 

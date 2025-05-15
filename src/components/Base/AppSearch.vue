@@ -26,8 +26,8 @@
     isLoading.value = true;
     try {
       const [recipesResponse, ingredientsResponse] = await Promise.all([
-        getSearchRecipe(query, 0, 5),
-        searchIngredients(query, 0, 5)
+        getSearchRecipe(query, 0, 10),
+        searchIngredients(query, 0, 10)
       ]);
       recipes.value = recipesResponse.results;
       ingredients.value = ingredientsResponse.results;
